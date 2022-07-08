@@ -40,24 +40,19 @@ const months = [
 const API_KEY = "ec7c14c16683b0200d42479c5300bc9b";
 
 // Button to show form
-const bbtnn2 = document.getElementById('bbtnn2');
-form.style.display = 'none';
+const bbtnn2 = document.getElementById("bbtnn2");
+weatherForm.style.display = "none";
 
-bbtnn2.addEventListener('click', () => {
-  const form = document.getElementById('form');
-  if (form.style.display === 'none') {
-    // this SHOWS the form
-    form.style.display = 'block';
-  } else {
-    // this HIDES the form
-    form.style.display = 'none';
-  }
+bbtnn2.addEventListener("click", () => {
+  weatherForm.style.display = "block";
+  setDisplayStyleNone()
 });
 
 // Button for current location
-const bbtnn1 = document.getElementById('bbtnn1');
-bbtnn1.addEventListener('click', () => {
-  form.style.display = 'none';
+const bbtnn1 = document.getElementById("bbtnn1");
+bbtnn1.addEventListener("click", () => {
+  weatherForm.style.display = "none";
+  setDisplayStyle()
   getWeatherData1();
 });
 
@@ -97,17 +92,23 @@ function getWeatherData1() {
 
 weatherForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  
   const address = search.value;
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${address}&appid=${API_KEY}`
-  )
+    )
     .then((res) => res.json())
     .then((data) => {
-      getWeatherData(data);
+      if (data.cod == "404") {
+        alert("Please enter a valid city name.")
+        setDisplayStyleNone()
+      }
+      setDisplayStyle()
+      getWeatherData2(data);
     });
 });
 
-function getWeatherData(data) {
+function getWeatherData2(data) {
   currentWeatherItemsEl.innerHTML = `<h2>Loading...</h2>`;
   console.log(data);
   let { lon, lat } = data.coord;
@@ -122,6 +123,23 @@ function getWeatherData(data) {
     });
 }
 
+function setDisplayStyleNone(){
+  timezone.style.display = "none";
+  countryEl.style.display = "none";
+  currentWeatherItemsEl.style.display = "none";
+  currentTempEl.style.display = "none";
+  weatherForecastEl.style.display = "none";
+  search.value = "";
+}
+
+function setDisplayStyle() {
+  currentWeatherItemsEl.style.display = "block";
+  timezone.style.display = "block";
+  countryEl.style.display = "block";
+  currentTempEl.style.display = "flex";
+  weatherForecastEl.style.display = "flex";
+}
+
 function showWeatherData(data) {
   let { weather, humidity, pressure, temp, wind_speed } = data.current;
 
@@ -130,7 +148,7 @@ function showWeatherData(data) {
   countryEl.innerHTML = data.lat + "N " + data.lon + "E";
 
   if (data.cod =="404"){
-    currentWeatherItemsEl.innerHTML = `<h3>City not found</h3>`
+    currentWeatherItemsEl.innerHTML = `<h3>CITY NOT FOUND</h3>`
     return;
   }
 

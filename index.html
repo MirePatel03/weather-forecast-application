@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WEATHER FORECAST APPLICATION</title>
+  <title>WEATHER FORECAST APP</title>
 
   <!-- bootstrap css file -->
   <!-- CSS only -->
@@ -40,7 +40,7 @@
 
           <div class="col-12 col-sm-12 col-md-6">
             <div class="container main-btn-class">
-              <div class="row">
+              <div class="row">              
                 <div class="col-12">
                   <button id="bbtnn1" class="main-button">CURRENT LOCATION</button>
                 </div>
@@ -49,13 +49,6 @@
                 </div>
                 <div class="col-12">
                   <button id="bbtnn2" class="main-button">SEARCH LOCATION</button>
-                  <form class="weatherLocation" id="form">
-                    <div class="loc-form">
-                      <input placeholder="Enter location" type="text"
-                        style="border-radius: 50px; padding: 10px 15px 10px 15px;" />
-                      <button><i class="bi bi-search"></i></button>
-                    </div>
-                  </form>
                 </div>
               </div>
             </div>
@@ -67,8 +60,16 @@
               <div class="country" id="country"></div>
             </div>
           </div>
+          
+          <form class="weatherLocation" id="form">
+            <div class="loc-form">
+              <input placeholder="Enter location" type="text" style="border-radius: 50px; padding: 10px 15px 10px 15px;" />
+              <button><i class="bi bi-search"></i></button>
+            </div>
+          </form>
 
           <div id="current-weather-items" class="col-10 col-sm-10 col-md-6 col-xl-4 m-auto mt-2 mt-md-5"></div>
+
         </div>
       </div>
     </div>
@@ -77,8 +78,7 @@
   <section id="future-forecast-section">
     <div class="future-forecast">
       <div id="current-temp"></div>
-      <div class="weather-forecast " id="weather-forecast">
-      </div>
+      <div class="weather-forecast " id="weather-forecast"></div>
     </div>
   </section>
 
